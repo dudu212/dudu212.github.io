@@ -1,0 +1,32 @@
+---
+title: "认识 MCP：Model Context Protocol 是什么"
+date: "2026-08-19"
+description: "用一杯咖啡的时间搞清 MCP 的概念、它想解决什么问题，以及一个最小可运行示例。"
+tags: ["ai", "mcp", "protocol"]
+category: "blog"
+published: true
+---
+
+> 这是一篇占位文章。上线后我会用真实内容替换。保留这篇是为了让博客列表页有多个条目可以点击、验证渲染链路。
+
+## 一句话解释
+
+**MCP（Model Context Protocol）** 是一套让大模型与外部工具/数据源对话的开放协议。你可以把它理解成"给 AI 应用装 USB-C 口"：
+
+- 之前：每个 AI 应用要给每个数据源写一遍集成
+- 之后：数据源实现 MCP server 一次，任何 AI 应用（Claude Desktop、Cursor、自己的 Agent）都能连
+
+## 为什么值得关注
+
+1. **协议标准化**——工具生态可以脱离特定模型/客户端存在
+2. **权限模型清晰**——本地进程 + stdio/SSE 传输，用户可控
+3. **落地门槛低**——一个 MCP server 可能就 100 行代码
+
+## 下一步
+
+在正式版里我会把这里换成：
+- 一个最小 MCP server 示例（Node.js / Python）
+- 在 Claude Desktop 里的连接演示
+- 一个我自己在 [FEDrill](/projects/fedrill) 里怎么想用 MCP 的具体场景
+
+—— 占位内容，2026-08-19
