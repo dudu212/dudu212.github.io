@@ -7,10 +7,17 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <section className="prose prose-neutral dark:prose-invert max-w-none">
-      <h1>关于我</h1>
+    <div className="mx-auto max-w-3xl">
+      <header className="mb-8">
+        <div className="eyebrow mb-4">关于 · 序</div>
+        <h1 className="font-serif text-[clamp(32px,5vw,52px)] tracking-tight">
+          关于我
+        </h1>
+        <hr className="rule-double mt-8" />
+      </header>
 
-      <p>
+      <section className="prose prose-neutral max-w-none prose-headings:font-serif">
+        <p>
         你好，我是 <strong>dudu</strong> —— 前端工程师，正在准备 2026 秋招。
         兴趣方向是 <em>AI + 前端</em>：把大模型与 Agent 能力融合进开发者工具与产品，
         探索能真正提高生产力的用法。
@@ -45,6 +52,7 @@ export default function AboutPage() {
       <p className="text-sm text-muted">
         这个页面是占位内容，具体信息我会逐步完善。
       </p>
-    </section>
+      </section>
+    </div>
   );
 }

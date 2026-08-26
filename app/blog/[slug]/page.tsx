@@ -31,33 +31,39 @@ export default async function BlogPostPage({
   const { default: MDXContent } = await import(`@/content/posts/${slug}.mdx`);
 
   return (
-    <article>
+    <article className="mx-auto max-w-3xl">
       <nav className="mb-8 text-sm">
-        <Link href="/blog" className="text-muted hover:text-foreground transition">
-          ← 返回博客
+        <Link
+          href="/blog"
+          className="font-mono text-xs tracking-wide text-muted hover:text-accent transition"
+        >
+          ← 返回文章
         </Link>
       </nav>
 
-      <header className="mb-8 pb-6 border-b border-border">
-        <h1 className="text-3xl font-semibold tracking-tight mb-3">
+      <header className="mb-10">
+        <h1 className="font-serif text-[clamp(30px,5vw,46px)] leading-[1.25] tracking-tight mb-3">
           {post.title}
         </h1>
-        <div className="flex items-center gap-3 text-sm text-muted font-mono">
+        <div className="flex items-center gap-3 text-xs text-muted font-mono tracking-wide">
           <time>{post.date}</time>
           {post.tags && post.tags.length > 0 && (
             <>
-              <span>·</span>
+              <span className="text-rule">·</span>
               <div className="flex gap-2">
                 {post.tags.map((tag) => (
-                  <span key={tag}>#{tag}</span>
+                  <span key={tag} className="text-accent/70">
+                    #{tag}
+                  </span>
                 ))}
               </div>
             </>
           )}
         </div>
+        <hr className="rule-double mt-6" />
       </header>
 
-      <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-accent prose-code:before:content-none prose-code:after:content-none">
+      <div className="prose prose-neutral max-w-none prose-headings:font-serif prose-code:before:content-none prose-code:after:content-none">
         <MDXContent />
       </div>
     </article>

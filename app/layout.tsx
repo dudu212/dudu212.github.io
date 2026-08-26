@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Newsreader, Noto_Serif_SC, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { ThemeScript } from "@/components/ThemeScript";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const serifLatin = Newsreader({
+  variable: "--font-serif-latin",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
+});
+
+const serifSC = Noto_Serif_SC({
+  variable: "--font-serif-sc",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -34,17 +43,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="zh-CN"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${serifLatin.variable} ${serifSC.variable} ${geistMono.variable} antialiased`}
     >
       <head>
         <ThemeScript />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-foreground">
+        <div className="ambient-bg" aria-hidden />
         <Header />
-        <main className="flex-1 mx-auto w-full max-w-3xl px-6 py-10">
+        <main className="flex-1 mx-auto w-full max-w-3xl px-6 py-12">
           {children}
         </main>
         <Footer />
+        <ProfileDrawer />
       </body>
     </html>
   );

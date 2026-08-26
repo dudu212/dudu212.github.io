@@ -38,7 +38,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted hover:text-foreground hover:border-foreground/30 transition"
+      className="glass inline-flex h-8 w-8 items-center justify-center rounded-md text-muted hover:text-accent hover:border-accent transition"
     >
       {mounted ? (theme === "dark" ? "☀" : "☾") : "·"}
     </button>

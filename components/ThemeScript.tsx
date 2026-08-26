@@ -1,14 +1,10 @@
 export function ThemeScript() {
+  // 文库本主题:亮色单主题。始终应用 theme-light。
   const code = `
 (function() {
   try {
-    var stored = localStorage.getItem('theme');
-    var theme = stored;
-    if (!theme) {
-      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    document.documentElement.classList.remove('theme-light', 'theme-dark');
-    document.documentElement.classList.add('theme-' + theme);
+    document.documentElement.classList.remove('theme-dark');
+    document.documentElement.classList.add('theme-light');
   } catch (e) {}
 })();
   `.trim();

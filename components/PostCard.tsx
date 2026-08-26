@@ -17,28 +17,25 @@ export function PostCard({ post, hrefPrefix }: Props) {
   return (
     <Link
       href={`${hrefPrefix}/${post.slug}`}
-      className="group block py-5 border-b border-border last:border-b-0 hover:border-foreground/40 transition"
+      className="group block py-5 border-b border-border/70 last:border-b-0"
     >
-      <div className="flex items-baseline justify-between gap-4 mb-1">
-        <h3 className="text-lg font-medium group-hover:text-accent transition">
+      <div className="flex items-baseline justify-between gap-4 mb-1.5">
+        <h3 className="font-serif text-xl group-hover:text-accent transition">
           {post.title}
         </h3>
-        <time className="shrink-0 text-xs text-muted font-mono">
+        <time className="shrink-0 text-xs text-muted font-mono tracking-wide">
           {post.date}
         </time>
       </div>
       {post.description && (
-        <p className="text-sm text-muted leading-relaxed mb-2">
+        <p className="font-serif text-[15px] text-muted leading-[1.8] mb-2">
           {post.description}
         </p>
       )}
       {post.tags && post.tags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs font-mono text-muted px-1.5 py-0.5 rounded bg-card"
-            >
+            <span key={tag} className="text-[11px] font-mono text-accent/70 tracking-wide">
               #{tag}
             </span>
           ))}

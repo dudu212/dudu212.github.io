@@ -33,30 +33,30 @@ export default async function ProjectDetailPage({
   );
 
   return (
-    <article>
+    <article className="mx-auto max-w-3xl">
       <nav className="mb-8 text-sm">
         <Link
           href="/projects"
-          className="text-muted hover:text-foreground transition"
+          className="font-mono text-xs tracking-wide text-muted hover:text-accent transition"
         >
-          ← 返回项目
+          ← 返回作品
         </Link>
       </nav>
 
-      <header className="mb-8 pb-6 border-b border-border">
-        <h1 className="text-3xl font-semibold tracking-tight mb-2">
+      <header className="mb-10">
+        <h1 className="font-serif text-[clamp(30px,5vw,46px)] leading-[1.25] tracking-tight mb-2">
           {project.title}
         </h1>
         {project.tagline && (
-          <p className="text-muted mb-4">{project.tagline}</p>
+          <p className="font-serif text-muted mb-4">{project.tagline}</p>
         )}
-        <div className="flex items-center gap-4 text-sm font-mono">
+        <div className="flex items-center gap-3 text-sm font-mono">
           {project.repo && (
             <a
               href={project.repo}
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:underline"
+              className="border border-border rounded px-3 py-1.5 text-accent hover:border-accent transition"
             >
               仓库 ↗
             </a>
@@ -66,15 +66,16 @@ export default async function ProjectDetailPage({
               href={project.demo}
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:underline"
+              className="border border-border rounded px-3 py-1.5 text-accent hover:border-accent transition"
             >
               Demo ↗
             </a>
           )}
         </div>
+        <hr className="rule-double mt-6" />
       </header>
 
-      <div className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-accent">
+      <div className="prose prose-neutral max-w-none prose-headings:font-serif">
         <MDXContent />
       </div>
     </article>
