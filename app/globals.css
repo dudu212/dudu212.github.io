@@ -227,6 +227,7 @@ details.accordion[open] > .acc-body {
   min-height: 100vh;
 }
 
+/* 封面容器:不再整体翻转,改由内部竖条分段卷起 */
 .leaf-cover {
   position: absolute;
   top: 0;
@@ -234,55 +235,51 @@ details.accordion[open] > .acc-body {
   width: 100%;
   height: 100vh;
   z-index: 5;
-  transform-origin: left center;
-  transform: rotateY(0deg);
-  transition: transform 1.15s cubic-bezier(0.34, 0.02, 0.12, 1),
-    box-shadow 1.15s ease, filter 1.15s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
-  backface-visibility: hidden;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background:
-    radial-gradient(120% 110% at 50% 28%, rgba(255, 250, 238, 0.55), transparent 62%),
-    var(--card);
-  box-shadow: inset -16px 0 34px -20px rgba(60, 48, 30, 0.55);
-}
-.leaf-cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-  opacity: 0.5;
-}
-/* 光泽/弯曲高光:翻页时扫过纸面,模拟纸张受光变软 */
-.leaf-cover::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.42) 42%,
-    rgba(255, 255, 255, 0.05) 54%,
-    rgba(60, 48, 30, 0.32) 100%
-  );
-  opacity: 0;
-  transition: opacity 1.15s ease;
+  overflow: visible;
 }
 .book-stage.is-open .leaf-cover {
-  transform: rotateY(-166deg);
-  box-shadow: 0 24px 70px -10px rgba(60, 48, 30, 0.6);
-  filter: brightness(0.94);
   pointer-events: none;
 }
-.book-stage.is-open .leaf-cover::before {
-  opacity: 1;
+
+/* 分段纸条层(多段卷边)*/
+.leaf-paper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 1;
+}
+.strip {
+  flex: 1 1 0;
+  height: 100%;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  transition: transform 0.8s cubic-bezier(0.42, 0.03, 0.18, 1),
+    box-shadow 0.8s ease;
+  backface-visibility: hidden;
+  background-color: var(--card);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  box-shadow: inset -6px 0 16px -14px rgba(60, 48, 30, 0.22);
+}
+.book-stage.is-open .strip {
+  transform: rotateY(-166deg);
+  box-shadow:
+    inset -14px 0 26px -14px rgba(60, 48, 30, 0.55),
+    inset 10px 0 18px -12px rgba(255, 255, 255, 0.4);
+}
+
+/* 封面文字层:翻开时淡出,避免平铺在卷起的纸上 */
+.leaf-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.4s ease, transform 0.45s ease;
+}
+.book-stage.is-open .leaf-content {
+  opacity: 0;
+  transform: scale(0.985);
+  pointer-events: none;
 }
 
 /* 书脊(左侧装订)*/
@@ -452,7 +449,8 @@ details.accordion[open] > .acc-body {
 @media (prefers-reduced-motion: reduce) {
   .acc-mark,
   details.accordion[open] > .acc-body,
-  .leaf-cover,
+  .strip,
+  .leaf-content,
   .carousel-track,
   .mote {
     animation: none;
