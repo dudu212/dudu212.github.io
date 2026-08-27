@@ -14,10 +14,10 @@
 pnpm dev     # next dev(Turbopack)→ http://localhost:3000
 pnpm build   # 生产构建
 pnpm start   # 启动生产服务
-pnpm lint    # eslint(通过 eslint-config-next 使用 flat config)
+pnpm lint    # eslint(⚠️ 当前缺 eslint.config,会报错;类型/语法校验以 `pnpm exec tsc --noEmit` 为准)
 ```
 
-**没有配置测试运行器。**
+**没有配置测试运行器。** 无浏览器时,可用 Edge 无头截图目测:`msedge --headless=new --screenshot=out.png --window-size=1366,860 http://localhost:3000`。
 
 ## 架构
 
@@ -41,9 +41,25 @@ pnpm lint    # eslint(通过 eslint-config-next 使用 flat config)
 - 文章 (`PostMeta`):`title`、`date`、`description?`、`tags?`、`category?` (`blog` | `notes`)、`published?`(默认 true)。
 - 项目 (`ProjectMeta`):`title`、`tagline`、`date?`、`status?` (`active` | `paused` | `archived`)、`tags?`、`repo?`、`demo?`、`featured?`。
 
-### 主题
+### 首页与视觉组件
 
-`components/ThemeScript.tsx` 在 `<head>` 里注入一段阻塞式内联脚本,根据 `localStorage.theme`(缺省时读 `prefers-color-scheme`)在首次绘制前给 `<html>` 打上 class —— 防止主题闪烁。`<ThemeToggle />` 写入同一个 key。设计 token 以 CSS 变量的形式集中在 `app/globals.css`(`--background`、`--foreground`、`--muted`、`--border`、`--accent`、`--card`)—— Tailwind 4 是 CSS-first,**没有 `tailwind.config.*` 文件**。
+首页 `app/page.tsx` 只取数据,渲染客户端组件 `components/BookHero.tsx`:
+
+- **`BookHero`**(client)—— 全屏「书封面」,点「翻开本书」用 CSS `rotateY` 软翻(`.book-stage.is-open` 触发 `.leaf-cover` 翻转 + 光泽);翻开后是「卷内目录」:两条 `Carousel`(精选作品 / 近期文章)。
+- **`Carousel`**(client)—— 横向轮播 + 走马灯圆点;**非当前页用 `inert`**(勿改回 `aria-hidden`,那会让屏外可聚焦链接产生 a11y 冲突)。
+- **`ProfileDrawer`**(client,挂在 `layout` 全站可用)—— 右缘朱砂书签,点开从右滑出个人信息面板。
+
+改这些交互/样式时,几何在组件 JSX,动效与令牌在 `app/globals.css`(`.book-stage`/`.leaf-cover`/`.carousel-*`)。**纯 CSS 无法做真实纸张卷曲**,真曲面需 WebGL,勿反复在 CSS 里尝试。
+
+### RSS 与站点常量
+
+`app/rss.xml/route.ts` 用 `getAllPosts()` 生成 RSS 2.0(`force-static`)。站点级常量在 `lib/site.ts`:`SITE_URL` 读环境变量 `NEXT_PUBLIC_SITE_URL`(回退 vercel 子域),被 `layout` 的 `metadataBase`、OG 图与 RSS 复用 —— 需要绝对 URL 时从这里取,别再写死。
+
+### 主题与设计系统
+
+**做旧「文库本」视觉,亮色单主题**(已移除深色/切换)。`components/ThemeScript.tsx` 在首绘前固定给 `<html>` 加 `theme-light`(防闪烁)。字体在 `layout` 用 `next/font` 装载:中文思源宋体(Noto Serif SC)+ 拉丁 Newsreader + Geist Mono,合成 `--font-serif` / `--font-mono`。
+
+设计令牌集中在 `app/globals.css`,Tailwind 4 是 CSS-first(**无 `tailwind.config.*`**):`--background`(旧纸)、`--foreground`(铅墨)、`--muted`、`--border`、`--rule`(书页双细线)、`--accent`(**朱砂印**)、`--card`(内页)、`--vellum*`(硫酸纸/毛玻璃)。配套工具类:`.vellum`、`.seal`、`.rule-double`、`.eyebrow`、`.book-stage/.leaf-*`、`.carousel-*`;所有动效都在 `@media (prefers-reduced-motion: reduce)` 里关掉。改视觉优先改这些变量。
 
 ### 路径别名
 
