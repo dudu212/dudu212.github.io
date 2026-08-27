@@ -84,63 +84,50 @@ export function BookHero({ projects, posts, stack }: Props) {
         </div>
       </div>
 
-      {/* 封面(点击翻开,多段卷边)*/}
+      {/* 封面(点击翻开)*/}
       <div className="book-spine" aria-hidden />
       <div className="leaf-cover">
-        {/* 分段纸条:翻开时从右向左依次卷起 */}
-        <div className="leaf-paper" aria-hidden>
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              className="strip"
-              key={i}
-              style={{ transitionDelay: `${(7 - i) * 55}ms` }}
-            />
-          ))}
-        </div>
+        {MOTES.map((m, i) => (
+          <span
+            key={i}
+            className="mote"
+            style={{
+              left: m.left,
+              bottom: "20%",
+              width: m.size,
+              height: m.size,
+              animationDuration: `${m.dur}s`,
+              animationDelay: `${m.delay}s`,
+            }}
+            aria-hidden
+          />
+        ))}
 
-        <div className="leaf-content">
-          {MOTES.map((m, i) => (
-            <span
-              key={i}
-              className="mote"
-              style={{
-                left: m.left,
-                bottom: "20%",
-                width: m.size,
-                height: m.size,
-                animationDuration: `${m.dur}s`,
-                animationDelay: `${m.delay}s`,
-              }}
-              aria-hidden
-            />
-          ))}
-
-          <div className="cover-frame">
-            <div className="eyebrow mb-6">卷首 · 手记</div>
-            <h1 className="font-serif text-[clamp(34px,6vw,62px)] leading-[1.2] tracking-tight">
-              重生之我用{" "}
-              <span className="text-accent">AI</span>{" "}
-              写前端
-            </h1>
-            <div className="flex items-center justify-center gap-4 mt-7">
-              <span className="h-px w-10" style={{ background: "var(--rule)" }} />
-              <span className="seal" aria-hidden>
-                手记
-              </span>
-              <span className="h-px w-10" style={{ background: "var(--rule)" }} />
-            </div>
-            <p className="mt-6 font-mono text-[11px] tracking-[0.14em] text-muted">
-              dudu 著 · {stack}
-            </p>
-
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="mt-9 inline-flex items-center gap-2 border border-accent text-accent rounded px-6 py-2.5 font-serif text-[15px] tracking-wide hover:bg-accent hover:text-[#f5efe2] transition"
-            >
-              翻开本书 →
-            </button>
+        <div className="cover-frame">
+          <div className="eyebrow mb-6">卷首 · 手记</div>
+          <h1 className="font-serif text-[clamp(34px,6vw,62px)] leading-[1.2] tracking-tight">
+            重生之我用{" "}
+            <span className="text-accent">AI</span>{" "}
+            写前端
+          </h1>
+          <div className="flex items-center justify-center gap-4 mt-7">
+            <span className="h-px w-10" style={{ background: "var(--rule)" }} />
+            <span className="seal" aria-hidden>
+              手记
+            </span>
+            <span className="h-px w-10" style={{ background: "var(--rule)" }} />
           </div>
+          <p className="mt-6 font-mono text-[11px] tracking-[0.14em] text-muted">
+            dudu 著 · {stack}
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="mt-9 inline-flex items-center gap-2 border border-accent text-accent rounded px-6 py-2.5 font-serif text-[15px] tracking-wide hover:bg-accent hover:text-[#f5efe2] transition"
+          >
+            翻开本书 →
+          </button>
         </div>
       </div>
     </div>
