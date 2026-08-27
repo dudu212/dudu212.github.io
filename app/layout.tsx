@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { ThemeScript } from "@/components/ThemeScript";
+import { SITE_URL, SITE_DESCRIPTION } from "@/lib/site";
 import "./globals.css";
 
 const serifLatin = Newsreader({
@@ -29,8 +30,13 @@ export const metadata: Metadata = {
     default: "dudu · 前端 & AI",
     template: "%s · dudu",
   },
-  description: "前端工程师，关注 AI、开发者工具与工程实践。分享学习笔记与项目复盘。",
-  metadataBase: new URL("https://dudu-site.vercel.app"),
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
+  },
   openGraph: {
     type: "website",
     locale: "zh_CN",
