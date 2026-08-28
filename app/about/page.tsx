@@ -18,40 +18,40 @@ export default function AboutPage() {
 
       <section className="prose prose-neutral max-w-none prose-headings:font-serif">
         <p>
-        你好，我是 <strong>dudu</strong> —— 前端工程师，正在准备 2026 秋招。
-        兴趣方向是 <em>AI + 前端</em>：把大模型与 Agent 能力融合进开发者工具与产品，
-        探索能真正提高生产力的用法。
-      </p>
+          你好，我是 <strong>dudu</strong>，一个写前端的人，也在认真地把 AI
+          收进日常的开发流程里。如果把 dudu.dev
+          当成一本书，这一页就是它的序——记下我此刻在做什么、用什么、以及怎么找到我。
+        </p>
+        <p>
+          我关心的一直是同一件事：<em>把大模型与 Agent 的能力，落成开发者真正用得上的工具</em>，
+          而不是停在演示里。眼下也在准备 2026 秋招，方向是前端 × AI。
+        </p>
 
-      <h2>正在做的</h2>
-      <ul>
-        <li>
-          <a href="/projects/fedrill">FEDrill</a> ——
-          前端秋招 AI 教练，覆盖手撕题、算法与八股，正在做 MVP。
-        </li>
-        <li>
-          本站 · dudu.dev —— 记录学习、项目复盘与技术思考的地方。
-        </li>
-      </ul>
+        <h2>此刻在做</h2>
+        <ul>
+          <li>
+            <a href="/projects/fedrill">FEDrill</a> ——
+            面向前端秋招的 AI 教练，把「手撕题、算法、八股」揉进一套可持续的训练流，
+            让 AI 扮演耐心又严格的面试官。正在打磨 MVP。
+          </li>
+          <li>
+            本站 · dudu.dev —— 学习笔记、项目复盘与技术思考的存放处；
+            新文章会同步进博客与 RSS。
+          </li>
+        </ul>
 
-      <h2>技术栈</h2>
-      <ul>
-        <li><strong>擅长</strong>：HTML/CSS/JS、React、Next.js、TypeScript、Tailwind</li>
-        <li><strong>在学</strong>：RSC、Server Actions、MCP、Agent 系统设计、Monaco Editor</li>
-        <li><strong>工具</strong>：Vercel、pnpm、Git、Claude Code</li>
-      </ul>
+        <h2>手艺</h2>
+        <ul>
+          <li><strong>顺手</strong>：HTML/CSS/JS、React、Next.js、TypeScript、Tailwind</li>
+          <li><strong>在练</strong>：RSC、Server Actions、MCP、Agent 系统设计、Monaco Editor</li>
+          <li><strong>常用工具</strong>：Vercel、pnpm、Git、Claude Code</li>
+        </ul>
 
-      <h2>联系</h2>
-      <ul>
-        <li>GitHub: <a href="https://github.com/dudu212">dudu212</a></li>
-        <li>本站文章有 RSS，也可以直接在 GitHub 上找到我</li>
-      </ul>
-
-      <hr />
-
-      <p className="text-sm text-muted">
-        这个页面是占位内容，具体信息我会逐步完善。
-      </p>
+        <h2>如何找到我</h2>
+        <ul>
+          <li>GitHub —— <a href="https://github.com/dudu212">dudu212</a></li>
+          <li>订阅 —— 本站文章有 <a href="/rss.xml">RSS</a></li>
+        </ul>
       </section>
     </div>
   );
