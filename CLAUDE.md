@@ -70,3 +70,4 @@ pnpm lint    # eslint(⚠️ 当前缺 eslint.config,会报错;类型/语法校�
 - 站点语言是中文(`lang="zh-CN"`、`locale: zh_CN`),组件文案和 MDX 内容都用中文。改动面向用户的字符串时,保持相同语气。
 - `next-env.d.ts` 提供环境类型 `PageProps<"/route">` / `LayoutProps<"/">` —— 页面/布局签名直接用这些类型,不要手写 `{ params: Promise<{ slug: string }> }`(Next 16 里 `params` 是 Promise,记得 `await`)。
 - 存在 `.env.local.example`,复制为 `.env.local` 用作本地环境变量。
+- 所有git提交中都不要加Co-Authored-By: Claude
