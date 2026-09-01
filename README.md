@@ -1,5 +1,7 @@
 # dudu-site
 
+> 线上地址:<https://dudu212.github.io>
+
 个人博客与作品集,前端 & AI 方向。做旧「文库本」视觉:旧纸底纹、思源宋体、朱砂印、硫酸纸(毛玻璃),首页是一本可翻开的书。
 
 ## 技术栈
@@ -9,7 +11,7 @@
 - [Tailwind CSS 4](https://tailwindcss.com/)(CSS-first,无 config 文件)
 - [MDX](https://mdxjs.com/) + [gray-matter](https://github.com/jonschlinkert/gray-matter) 驱动内容
 - 字体:Noto Serif SC(思源宋体)· Newsreader · Geist Mono(均走 `next/font`)
-- TypeScript · pnpm · 部署 Vercel
+- TypeScript · pnpm · 部署 GitHub Pages(静态导出)
 
 ## 本地开发
 
@@ -109,17 +111,28 @@ demo: "https://..."
 项目详情正文。
 ```
 
-## 部署(Vercel)
+## 部署(GitHub Pages · root domain)
 
-1. 在 GitHub 新建 repo(例如 `dudu-site`),推送本仓库:
+已配置 [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml)——推到 `main` 分支自动构建并发布到 `https://dudu212.github.io`。
+
+一次性准备:
+
+1. 建仓库 `dudu212/dudu212.github.io`,把本地代码 push 上去:
    ```bash
-   git remote add origin git@github.com:<user>/dudu-site.git
+   git remote add origin git@github.com:dudu212/dudu212.github.io.git
    git push -u origin main
    ```
-2. 到 [vercel.com](https://vercel.com/) → Import Project → 选这个 repo(Next.js 会被自动识别,无需改配置)。
-3. 在 Vercel 项目的 **Settings → Environment Variables** 添加:
-   - `NEXT_PUBLIC_SITE_URL` = 你的正式域名(如 `https://dudu.dev`)。用于 OG 分享图与 RSS 的绝对链接;不设则回退到 `https://dudu-site.vercel.app`。
-4. 之后推送到 `main` 即自动部署。
+2. 仓库 **Settings → Pages → Source** 设为 **GitHub Actions**(不用 legacy branch)。
+3. 首次 push 触发 workflow;完成后打开 `https://dudu212.github.io` 即可。
+
+站点绝对 URL(OG 图、RSS 里的 `<link>`/`<guid>`)通过 `NEXT_PUBLIC_SITE_URL` 环境变量注入,workflow 已内置为 `https://dudu212.github.io`。要换域名改 [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) 里的这一处即可。
+
+想在本地预览静态导出结果:
+
+```bash
+pnpm build
+npx serve out
+```
 
 ## License
 

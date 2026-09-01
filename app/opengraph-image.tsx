@@ -3,6 +3,7 @@ import { ImageResponse } from "next/og";
 export const alt = "dudu.dev — 前端 & AI 工程笔记";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const dynamic = "force-static";
 
 export default function Image() {
   return new ImageResponse(

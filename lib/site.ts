@@ -1,8 +1,8 @@
-// 站点级常量。部署时在 Vercel 设置 NEXT_PUBLIC_SITE_URL 为真实域名;
-// 本地/未设置时回退到 vercel 默认子域。
+// 站点级常量。部署时通过 NEXT_PUBLIC_SITE_URL 注入真实域名;
+// 未设置时回退到 GitHub Pages 域名。
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") ??
-  "https://dudu-site.vercel.app";
+  "https://dudu212.github.io";
 
 export const SITE_NAME = "dudu";
 export const SITE_TITLE = "dudu · 前端 & AI";
